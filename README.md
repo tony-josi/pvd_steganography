@@ -11,11 +11,12 @@ Clone repository.
 ### Prerequisites
 
 python3
+
 Python Image Library (PIL)
 
 ## Author
 
-* **Tony Josi** - *Initial work* - [TonyJosi97](https://github.com/TonyJosi97)
+* **Tony Josi** - [TonyJosi97](https://github.com/TonyJosi97)
 
 
 ## License
