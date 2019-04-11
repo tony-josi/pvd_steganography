@@ -6,6 +6,8 @@ As of now extraxtion is done using the generated log file containing data locati
 
 Surce Code is documented.
 
+**Only PNG Image** files should be used as cover image and final output image.
+
 ## Getting Started
 
 Clone repository.
