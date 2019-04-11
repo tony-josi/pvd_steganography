@@ -17,7 +17,7 @@ Clone repository.
 
 ## Usage: Embedding
 
-> Usage: python3 pvdEmbed.py <i / p File> /<Cover Image> 
+> Usage: python3 pvdEmbed.py i/p_File Cover_Image 
 
 > Eg:    python3 pvdEmbed.py enc test.png 
 
@@ -25,7 +25,7 @@ Clone repository.
 
 ## Usage: Extraction
 
-> Usage: python3 pvdExtract.py /<Embedded Cover Image File> <Output File> 
+> Usage: python3 pvdExtract.py Embedded_Cover_Image_File Output_File 
 
 > Eg:    python3 pvdExtract.py protest.png cipher
 
