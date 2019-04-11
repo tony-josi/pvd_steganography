@@ -5,13 +5,13 @@ __status__ = "Production"
 
 
 """
-************************************************
+****************************************************
 
 Usage: python3 pvdEmbed.py <i/p File> <Cover Image> 
-Ex:    python3 pvdEmbed.py enc test.png 
+Eg:    python3 pvdEmbed.py enc test.png 
 Embed data Log can be found as: embedlog.log
 
-************************************************
+****************************************************
 """
 
 from PIL import Image

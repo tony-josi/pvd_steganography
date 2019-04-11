@@ -5,12 +5,12 @@ __status__ = "Production"
 
 
 """
-************************************************
+***********************************************************************
 
 Usage: python3 pvdExtract.py <Embedded Cover Image File> <Output File> 
 Ex:    python3 pvdExtract.py protest.png cipher
 
-************************************************
+***********************************************************************
 """
 
 from PIL import Image
