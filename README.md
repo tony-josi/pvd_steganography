@@ -12,20 +12,19 @@ Clone repository.
 
 ### Prerequisites
 
-python3
-
-Python Image Library (PIL)
+- python3
+- Python Image Library (PIL)
 
 ## Usage: Embedding
 
-Usage: python3 pvdEmbed.py <i/p File> <Cover Image> 
-Eg:    python3 pvdEmbed.py enc test.png 
-Embed data Log can be found as: embedlog.log
+> Usage: python3 pvdEmbed.py <i/p File> <Cover Image> 
+> Eg:    python3 pvdEmbed.py enc test.png 
+> Embed data Log can be found as: embedlog.log
 
 ## Usage: Extraction
 
-Usage: python3 pvdExtract.py <Embedded Cover Image File> <Output File> 
-Eg:    python3 pvdExtract.py protest.png cipher
+> Usage: python3 pvdExtract.py <Embedded Cover Image File> <Output File> 
+> Eg:    python3 pvdExtract.py protest.png cipher
 
 ## Author
 
