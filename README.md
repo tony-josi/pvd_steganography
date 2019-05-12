@@ -4,7 +4,7 @@ LSB substitution and PVD are applied. In PVD, adaptive non-overlapping 3x3 pixel
 
 As of now extraxtion is done using the generated log file containing data locations in cover Image.
 
-Surce Code is documented.
+Source Code is documented.
 
 **Only PNG Image** files should be used as cover image and final output image.
 
