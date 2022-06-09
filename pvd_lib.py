@@ -1,3 +1,4 @@
+import os
 import sys
 from PIL import Image
 
@@ -28,7 +29,7 @@ class pvd_lib:
             no_of_matrix_h = img_height // 3 - 1
             no_of_matrix_w = img_width // 3 - 1
 
-            if no_of_matrix_h < 1 or no_of_matrix_w < 1:
+            if no_of_matrix_h < 1 or no_of_matrix_w < 1 or len(pixels[0, 0]) < 3:
                 return embed_capacity;
 
             for height_itr in range(0, no_of_matrix_h * 3, 3):
@@ -53,10 +54,18 @@ class pvd_lib:
         return embed_capacity // 8
 
     def pvd_embed(self, ref_image_path, secret_file_path):
-        pass
+        
+        embed_cap = self._embed_capacity(ref_image_path)
+        s_f_size = os.path.getsize(secret_file_path)
+
+        if embed_cap < s_f_size:
+            print("ERROR: Secret file size is more than embedding capacity of image - " \
+                "Embedding capacity: {} bytes, Secret file size: {} bytes".format(embed_cap, s_f_size))
+
 
 
 """ Test """
 if __name__ == "__main__":
     pvd_obj = pvd_lib()
-    pvd_obj._embed_capacity(sys.argv[1])
+    #pvd_obj._embed_capacity(sys.argv[1])
+    pvd_obj.pvd_embed(sys.argv[1], sys.argv[2])
