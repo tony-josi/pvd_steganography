@@ -177,10 +177,11 @@ class pvd_lib:
         pixel &= (mask)
         return (pixel)
 
-    def embed_data(self, ref_image_path):
+    def embed_data(self, ref_image_path, s_file_path, op_img_path):
     
-        embed_capacity = 0
+        embedded_ds = 0
         
+        bits_reader = file_bits_reader(s_file_path)
         with Image.open(ref_image_path) as img_obj:
             pixels = img_obj.load()
             img_height, img_width = img_obj.size
@@ -206,11 +207,26 @@ class pvd_lib:
 
                             c_rgb = pixels[h_j, w_i]
 
-                            embed_capacity += pvd_lib._pvd_table(abs(c_rgb[0] - ref_rgb[0])) + \
-                                pvd_lib._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
-                                    pvd_lib._pvd_table(abs(c_rgb[2] - ref_rgb[2]))
-            
-        return embed_capacity // 8
+                            # embedded_ds += pvd_lib._pvd_table(abs(c_rgb[0] - ref_rgb[0])) + \
+                            #     pvd_lib._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
+                            #         pvd_lib._pvd_table(abs(c_rgb[2] - ref_rgb[2]))
+                            done_embedding = False
+                            for rgb in range(3):
+                                bits_reqd = pvd_lib._pvd_table(abs(c_rgb[rgb] - ref_rgb[rgb]))
+                                embedded_ds += bits_reqd
+                                ret_val = bits_reader.get_bits(bits_reqd)
+                                c_rgb[rgb] = pvd_lib.replace_lsbs(c_rgb[rgb], ret_val[2], ret_val[1])
+                                if ret_val[0] == True:
+                                    done_embedding = True
+                                    break
+
+                            pixels[h_j, w_i] = c_rgb
+
+                            if done_embedding:
+                                img_obj.save(op_img_path)
+                                return embedded_ds
+
+        return 
 
     def pvd_embed(self, ref_image_path, secret_file_path):
         
