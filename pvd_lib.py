@@ -225,6 +225,7 @@ class pvd_lib:
 
                             if done_embedding:
                                 img_obj.save(op_img_path)
+                                bits_reader.close_file()
                                 return embedded_ds
 
         return 
