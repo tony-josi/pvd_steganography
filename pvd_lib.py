@@ -117,7 +117,8 @@ class pvd_lib:
     def __init__(self):
         pass
 
-    def _pvd_table(self, p_diff):
+    @staticmethod
+    def _pvd_table(p_diff):
         nbits = 0
         if p_diff < 16:
             nbits = 2
@@ -127,7 +128,8 @@ class pvd_lib:
             nbits = 4
         return nbits
 
-    def _embed_capacity(self, ref_image_path):
+    @staticmethod
+    def _embed_capacity(ref_image_path):
 
         embed_capacity = 0
         
@@ -156,14 +158,26 @@ class pvd_lib:
 
                             c_rgb = pixels[h_j, w_i]
 
-                            embed_capacity += self._pvd_table(abs(c_rgb[0] - ref_rgb[0])) + \
-                                self._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
-                                    self._pvd_table(abs(c_rgb[2] - ref_rgb[2]))
+                            embed_capacity += pvd_lib._pvd_table(abs(c_rgb[0] - ref_rgb[0])) + \
+                                pvd_lib._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
+                                    pvd_lib._pvd_table(abs(c_rgb[2] - ref_rgb[2]))
             
         print(embed_capacity // 8)
         return embed_capacity // 8
 
-    def _embed_data(self, ref_image_path):
+    @staticmethod
+    def replace_lsbs(pixel, bits, value):
+        mask = (1 << bits) - 1
+        pixel &= (~mask)
+        return (pixel | value)
+
+    @staticmethod
+    def get_lsbs(pixel, bits):
+        mask = (1 << bits) - 1
+        pixel &= (mask)
+        return (pixel)
+
+    def embed_data(self, ref_image_path):
     
         embed_capacity = 0
         
@@ -192,16 +206,15 @@ class pvd_lib:
 
                             c_rgb = pixels[h_j, w_i]
 
-                            embed_capacity += self._pvd_table(abs(c_rgb[0] - ref_rgb[0])) + \
-                                self._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
-                                    self._pvd_table(abs(c_rgb[2] - ref_rgb[2]))
+                            embed_capacity += pvd_lib._pvd_table(abs(c_rgb[0] - ref_rgb[0])) + \
+                                pvd_lib._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
+                                    pvd_lib._pvd_table(abs(c_rgb[2] - ref_rgb[2]))
             
-        print(embed_capacity // 8)
         return embed_capacity // 8
 
     def pvd_embed(self, ref_image_path, secret_file_path):
         
-        embed_cap = self._embed_capacity(ref_image_path)
+        embed_cap = pvd_lib._embed_capacity(ref_image_path)
         s_f_size = os.path.getsize(secret_file_path)
 
         if embed_cap < s_f_size:
