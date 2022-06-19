@@ -206,6 +206,7 @@ class pvd_lib:
                                 continue
 
                             c_rgb = pixels[h_j, w_i]
+                            c_rgb_list = list(c_rgb)
 
                             # embedded_ds += pvd_lib._pvd_table(abs(c_rgb[0] - ref_rgb[0])) + \
                             #     pvd_lib._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
@@ -215,12 +216,12 @@ class pvd_lib:
                                 bits_reqd = pvd_lib._pvd_table(abs(c_rgb[rgb] - ref_rgb[rgb]))
                                 embedded_ds += bits_reqd
                                 ret_val = bits_reader.get_bits(bits_reqd)
-                                c_rgb[rgb] = pvd_lib.replace_lsbs(c_rgb[rgb], ret_val[2], ret_val[1])
+                                c_rgb_list[rgb] = pvd_lib.replace_lsbs(c_rgb[rgb], ret_val[2], ret_val[1])
                                 if ret_val[0] == True:
                                     done_embedding = True
                                     break
 
-                            pixels[h_j, w_i] = c_rgb
+                            pixels[h_j, w_i] = tuple(c_rgb_list)
 
                             if done_embedding:
                                 img_obj.save(op_img_path)
@@ -228,7 +229,7 @@ class pvd_lib:
 
         return 
 
-    def pvd_embed(self, ref_image_path, secret_file_path):
+    def pvd_embed(self, ref_image_path, secret_file_path, op_img_path):
         
         embed_cap = pvd_lib._embed_capacity(ref_image_path)
         s_f_size = os.path.getsize(secret_file_path)
@@ -237,10 +238,12 @@ class pvd_lib:
             print("ERROR: Secret file size is more than embedding capacity of image - " \
                 "Embedding capacity: {} bytes, Secret file size: {} bytes".format(embed_cap, s_f_size))
 
+        self.embed_data(ref_image_path, secret_file_path, op_img_path)
+
 
 
 """ Test """
 if __name__ == "__main__":
     pvd_obj = pvd_lib()
     #pvd_obj._embed_capacity(sys.argv[1])
-    pvd_obj.pvd_embed(sys.argv[1], sys.argv[2])
+    pvd_obj.pvd_embed(sys.argv[1], sys.argv[2], sys.argv[3])
