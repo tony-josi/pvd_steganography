@@ -199,7 +199,7 @@ class pvd_lib:
             no_of_matrix_w = img_width // 3 - 1
 
             if no_of_matrix_h < 1 or no_of_matrix_w < 1 or len(pixels[0, 0]) < 3:
-                return embed_capacity;
+                return embedded_ds;
 
             for height_itr in range(0, no_of_matrix_h * 3, 3):
                 for width_itr in range(0, no_of_matrix_w * 3, 3):
@@ -237,6 +237,28 @@ class pvd_lib:
                                 return embedded_ds
 
         return 
+
+    def extract_data(self, ref_image_path, s_file_path, pvd_img_path):
+        embedded_ds = 0
+        
+        bits_writer = file_bits_writer(s_file_path)
+        with Image.open(ref_image_path) as ref_img, Image.open(pvd_img_path) as pvd_img:
+            ref_pixels = ref_img.load()
+            ref_img_height, ref_img_width = pvd_img.size
+            pvd_pixels = ref_img.load()
+            pvd_img_height, pvd_img_width = pvd_img.size
+
+            if ref_img_height != pvd_img_height or ref_img_width != pvd_img_width:
+                raise ValueError("Ref vs embedded image not matching")
+
+            no_of_matrix_h = ref_img_height // 3 - 1
+            no_of_matrix_w = ref_img_width // 3 - 1
+
+            if no_of_matrix_h < 1 or no_of_matrix_w < 1 or len(pixels[0, 0]) < 3:
+                return embedded_ds;
+
+            for height_itr in range(0, no_of_matrix_h * 3, 3):
+                for width_itr in range(0, no_of_matrix_w * 3, 3):
 
     def pvd_embed(self, ref_image_path, secret_file_path, op_img_path):
         
