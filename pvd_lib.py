@@ -2,6 +2,11 @@ import os
 import sys
 from PIL import Image
 
+PVD_MAGIC = [1, 0, 1, 0]
+PVD_VERSION = [1, 0, 0]
+MAX_LENGTH_FIELD = 4
+BYTE_ORDER = 'big'
+
 class file_bits_reader:
     
     data = None
@@ -12,10 +17,11 @@ class file_bits_reader:
     def __init__(self, f_path):
         try:
             self.f_obj = open(f_path, "rb")
-            self.data = self.f_obj.read()
+            self.data = list(self.f_obj.read())
+            data_len = len(self.data)
+            self.data = PVD_MAGIC + PVD_VERSION + list(data_len.to_bytes(MAX_LENGTH_FIELD, BYTE_ORDER)) + self.data
             self.total_bytes = len(self.data) 
             self.byte_read = format(self.data[0], '#010b')[2:]
-            print(self.data)
             self.bits_read_in_cur_byte = 0
             self.bytes_read_so_far += 1
         except Exception as e:
