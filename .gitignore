@@ -2,3 +2,4 @@
 *.png
 pvd_venv/*
 *.txt
+__pycache__/*
