@@ -282,9 +282,9 @@ class pvd_lib:
                                 bits_reqd = pvd_lib._pvd_table(abs(c_rgb[rgb] - ref_rgb[rgb]))
                                 embedded_ds += bits_reqd
                                 data = pvd_lib.get_lsbs(pvd_c_rgb[rgb], bits_reqd)
+                                ret_val = bits_writer.set_bits(eof_reached, bits_reqd, data)
                                 if magic_extracted and (encoded_size + PVD_HEADER_SIZE) == bits_writer.bytes_wrote_to_file_so_far:
                                     eof_reached = True
-                                ret_val = bits_writer.set_bits(eof_reached, bits_reqd, data)
                                 if (bits_writer.bytes_wrote_to_file_so_far >= (PVD_HEADER_SIZE)) and magic_extracted == False:
                                     magic_extracted = True
                                     magic = bits_writer.data[:PVD_HEADER_SIZE]
@@ -296,6 +296,7 @@ class pvd_lib:
                                     encoded_size = (size_arr[0] << 24) + (size_arr[1] << 16) + (size_arr[2] << 8) + (size_arr[3] << 0)
                                 
                                 if eof_reached:
+                                    bits_writer.close_file()
                                     return embedded_ds
 
             return -1
