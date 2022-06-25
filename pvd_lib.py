@@ -314,9 +314,9 @@ class pvd_lib:
 
         return self.embed_data(ref_image_path, secret_file_path, op_img_path)
 
-    def pvd_extract(self, ref_image_path, secret_file_path, op_img_path):
+    def pvd_extract(self, ref_image_path, secret_op_file, pvd_img_path):
 
-        return self.extract_data(ref_image_path, secret_file_path, op_img_path)
+        return self.extract_data(ref_image_path, secret_op_file, pvd_img_path)
 
 
 
