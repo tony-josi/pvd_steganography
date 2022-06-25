@@ -53,3 +53,7 @@ To use the example `test_main.py` file:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Report error:
+
+Contact info: [https://tony-josi.github.io](https://tony-josi.github.io)
