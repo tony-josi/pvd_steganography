@@ -1,3 +1,17 @@
+"""
+/** 
+ *  @file   pvd_lib.py
+ *  @brief  PVD library Core API implementation file
+ *
+ *  This file contains the source code for the PVD library implementation.
+ *
+ *  @author         Tony Josi   https://tony-josi.github.io
+ *  @contact        tonyjosinew [at] gmail.com
+ *  @copyright      Copyright (C) 2022 Tony Josi
+ *  @bug            No known bugs.
+ */
+"""
+
 import os
 import sys
 from PIL import Image
