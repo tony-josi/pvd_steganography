@@ -116,7 +116,7 @@ class file_bits_writer:
 
     def close_file(self):
         if self.f_obj:
-            print(self.data)
+            #print(self.data)
             self.f_obj.write(bytes(self.data[PVD_HEADER_SIZE:]))
             self.f_obj.close()
 
@@ -171,7 +171,7 @@ class pvd_lib:
                                 pvd_lib._pvd_table(abs(c_rgb[1] - ref_rgb[1])) + \
                                     pvd_lib._pvd_table(abs(c_rgb[2] - ref_rgb[2]))
             
-        print(embed_capacity // 8)
+        #print(embed_capacity // 8)
         return embed_capacity // 8
 
     @staticmethod
